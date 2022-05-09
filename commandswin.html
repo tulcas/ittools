@@ -35,29 +35,202 @@
  <div id="content">
 
 
- <h3 class="h3class" >Corregir hora remoto</h3>
- <div class="code">
-	<pre>gpupdate /force</pre>	
-</div>
- 
-<h3 class="h3class" >Corregir hora remoto</h3>
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Quien Apago la PC (last shutdown) </h3>
 <div class="code">
-	<pre>content</pre>	
+<pre id="shutdown">
+psexec \\VDI-ANSES-0072 cmd.exe
+wevtutil qe system “/q:*[System [(EventID=1074)]]” /rd:true /f:text /c:1‘
+</pre>
+	<button onclick="copyToClipboard('shutdown')" class='copyBtn' name=btn>Copy TO</button> 
 </div>
-<h3 class="h3class" >Corregir hora remoto</h3>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Restart Explorer</h3>
 <div class="code">
-	<pre>content</pre>	
+		<pre id="Explorer">taskkill /F /IM explorer.exe & start explorer</pre>
+	<button onclick="copyToClipboard('Explorer')" class='copyBtn' name=btn>Copy TO</button> 
 </div>
-<h3 class="h3class" >Corregir hora remoto</h3>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >LOG OUT REMOTE (deslogueo NT)</h3>
 <div class="code">
-	<pre>content</pre>	
+		<pre id="TOKEN">
+QUser /server:10.12.203.5
+Logoff 3 /server:10.12.203.5
+Logoff 1 /server:VDI-ANSES-0036
+		</pre>
+	<button onclick="copyToClipboard('TOKEN')" class='copyBtn' name=btn>Copy TO</button> 
 </div>
-	
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Disable Twister_Ocx</h3>
+<div class="code">
+		<pre id="Ocx">net user "Twister_Ocx" /ACTIVE:NO</pre>
+	<button onclick="copyToClipboard('Ocx')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Opciones de Internet</h3>
+<div class="code">
+		<pre id="inetcpl">inetcpl.cpl</pre>
+	<button onclick="copyToClipboard('inetcpl')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Kill process Remotely</h3>
+<div class="code">
+		<pre id="ktely">taskkill /S 10.5.30.11 /u it-afiguera /IM OUTLOOK.EXE /F</pre>
+	<button onclick="copyToClipboard('ktely')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >User managment Remote</h3>
+<div class="code">
+		<pre id="lusrmgr">lusrmgr.msc /computer=10.6.2.122</pre>
+	<button onclick="copyToClipboard('lusrmgr')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Enable RegEdit Remotely</h3>
+<div class="code">
+		<pre id="start">sc \\10.6.10.79  start remoteregistry start= auto</pre>
+	<button onclick="copyToClipboard('start')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Disable Firewall Remotely</h3>
+<div class="code">
+		<pre id="advfirewall">
+netsh -r %COMPUTERNAME% -c advfirewall set DomainProfile state off
+netsh -r %COMPUTERNAME% -c advfirewall set allprofiles state off
+		</pre>
+	<button onclick="copyToClipboard('advfirewall')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >wmic uninstall remotely</h3>
+<div class="code">
+		<pre id="like">wmic product where "name like 'Forti%%'" call uninstall /nointeractive
+wmic product where "name like 'Google Chrome'" call uninstall /nointeractive
+wmic  /node:10.6.11.2  product where "name like '%Avaya%'" call uninstall /nointeractive
+		</pre>
+	<button onclick="copyToClipboard('like')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Services name</h3>
+<div class="code">
+		<pre id="TOKEN">onexcui.exe
+OUTLOOK.EXE
+		</pre>
+	<button onclick="copyToClipboard('TOKEN')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >WMIC PC Model</h3>
+<div class="code">
+		<pre id="Model">psexec \\10.6.11.32 WMIC COMPUTERSYSTEM GET Model</pre>
+	<button onclick="copyToClipboard('Model')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Hora WINDOWS</h3>
+<div class="code">
+		<pre id="Hora">psexec \\172.16.113.22 cmd.exe
+net time \\cl.pool.ntp.org  /set /y
+net time \\ar.pool.ntp.org  /set /y			
+Pools: 
+Argentina — ar.pool.ntp.org 
+Chile — cl.pool.ntp.org 
+
+net time \\tpsouth.corp /set /y
+net stop w32time
+w32tm /unregister 
+w32tm /register 
+net start w32time
+w32tm /resync /nowait
+net time \\tpsouth.corp /set /y
+TIME /T
+
+Para cambiar el timezone Remotamente:
+Argentina
+tzutil /s "Argentina Standard Time"
+
+Chile
+tzutil /s "Pacific SA Standard Time"
+
+Para saber cual timezone tiene configurado
+tzutil /g
+
+		</pre>
+	<button onclick="copyToClipboard('Hora')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Local Users</h3>
+<div class="code">
+		<pre id="Local">.\twister_ocx
+swAbs+tEN99
+
+%COMPUTERNAME%\twister_ocx
+swAbs+tEN99
+
+.\Desktop
+swAbs+tEN99
+
+Todo lo que sea RECO-XXX:
+.\desktop
+.\pc
+swAbs+tEN99
+
+
+</pre>
+	<button onclick="copyToClipboard('Local')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Titulo</h3>
+<div class="code">
+		<pre id="TOKEN">COOMANDO</pre>
+	<button onclick="copyToClipboard('TOKEN')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
+
+
+<!-- Command ----------------------------------------------------------------->
+<h3 class="h3class" >Titulo</h3>
+<div class="code">
+		<pre id="TOKEN">COOMANDO</pre>
+	<button onclick="copyToClipboard('TOKEN')" class='copyBtn' name=btn>Copy TO</button> 
+</div>
+<!--------------------------------------------------------------------------->
 	
 	
 
  
- </div>
+</div>
 <div class="br"></div>
 <div id="footer">
 <p class="center">Copyright &copy; 2022  | <a href="#">XHTML</a> | <a href="#">CSS</a> | <a href="">Thomas Anderson </a></p> 
