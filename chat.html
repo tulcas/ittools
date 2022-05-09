@@ -4,10 +4,8 @@
  <title>ITUtils</title>
  <meta http-equiv="content-type" content="application/xhtml; charset=UTF-8" />
  <link rel="stylesheet" type="text/css" href="style.css" media="screen, tv, projection" />
-
- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
  <script src="scritp.js"></script> 
+
 
  
 
@@ -46,14 +44,12 @@
 
 
 
-textarea
 <div class="source-block">
 
 
-	
+
   
   </div>
-
 
 
 
@@ -62,10 +58,17 @@ textarea
 <h3 class="h3class ">TEST</h3>
 
 <div class="code"> 
-<pre  id="target">
-lerem ipsum dolor sit amet erem ipsum dolor sit amet erem ipsum dolor sit amet
-</pre>
-<button onclick="copyToClipboard('#target')"   class='copyBtn' name=btn>COPY</button>
+
+<pre id="target"> We are learning to copy text to clipboard i </pre>
+<button onclick="copyToClipBoard()" class='copyBtn' name=btn>COPY</button>	
+
+
+
+<script>
+	new Clipboard('.copy-button');
+</script>
+
+
 
 </div>
 
@@ -238,5 +241,8 @@ https://tpsouthcone.my.idaptive.app/</pre>
 
 </div>
 </div>
+
+
+<script src="scritp.js"></script> 
 </body>
 </html>
